@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    p {
+        border: none;
+        background-color: pink;
+        width: 30%;
+        display: none;
+    }
+</style>
+<body>
+    <button>KLIK</button>
+    <div>
+        <p style="background-color: red;">Hi</p>
+        <p style="background-color: yellow;">This is me</p>
+        <p style="background-color: greenyellow;">How are you?</p>
+    </div>
+    
+    <script>
+    $(document).ready(function(){
+        $("button").click(function(){
+        $("p").toggle("slow");
+        $("p").animate({height: '200px'}, "slow");
+        $("p").animate({width: '300px'}, "slow");
+        $("p").animate({height: '100px'}, "slow");
+        $("p").animate({width: '100px'}, "slow");
+        });
+    });    
+    </script>
+</body>
+</html>

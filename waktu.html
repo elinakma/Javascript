@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waktu Real Time</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 210px;
+    }
+    #clock {
+        border: 2px solid;
+        border-radius: 20px;
+        background-color: rgba(104, 177, 143, 0.51);
+        width: 600px;
+        height: auto;
+        font-size: 90px;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+<body>
+    <div id="clock"></div>
+
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var date = now.toISOString().slice(0,10);
+            var time = now.toLocaleTimeString();
+            document.getElementById('clock').innerHTML = date + "<br>" + time;
+        }
+
+        // fungsi untuk menampikan setiap detik
+        setInterval(updateClock, 1000);
+
+        // menampilkan waktu saat halaman pertama kali dimuat
+        updateClock();
+    </script>
+
+</body>
+</html>

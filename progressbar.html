@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Progressbar Download</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<style>
+    .deskripsi {
+        display: flex;
+        align-items: center;
+    }
+    .deskripsi img {
+        width: 7%;
+        margin-right: 20px;
+    }
+    #downloadButton {
+        border: 8px solid royalblue;
+        border-radius: 100px;
+        background-color: royalblue;
+        width: 30%;
+        color: white;
+    }
+    #download-dialog {
+        display: none;
+    }
+    #progressbar {
+        width: 100%;
+    }
+    #progressbar {
+      margin-top: 20px;
+    }
+    .progress-label {
+      font-weight: bold;
+      text-shadow: 1px 1px 0 #fff;
+    }
+   
+    .ui-dialog-titlebar-close {
+      display: none;
+    }
+</style>
+</head>
+<body>
+    <div class="deskripsi">
+        <img src="gambar/pikachu.png">
+        <div>
+            <h2>Pikachu Go</h2>
+            <h3 style="color: cornflowerblue;">SYBO Games</h3>
+            <p>Berisi Iklan . Pembelian dalam apl</p>
+        </div>
+    </div>
+
+    <br>
+    <button id="downloadButton">Download Game</button>
+   
+    <div id="dialog" title="File Download">
+        <div class="progress-label">Starting download...</div>
+        <div id="progressbar"></div>
+    </div>
+
+      <script>
+    $( function() {
+      var progressTimer,
+        progressbar = $( "#progressbar" ),
+        progressLabel = $( ".progress-label" ),
+        dialogButtons = [{
+          text: "Cancel Download",
+          click: closeDownload
+        }],
+        dialog = $( "#dialog" ).dialog({
+          autoOpen: false,
+          closeOnEscape: false,
+          resizable: false,
+          buttons: dialogButtons,
+          open: function() {
+            progressTimer = setTimeout( progress, 2000 );
+          },
+          beforeClose: function() {
+            downloadButton.button( "option", {
+              disabled: false,
+              label: "Start Download"
+            });
+          }
+        }),
+        downloadButton = $( "#downloadButton" )
+          .button()
+          .on( "click", function() {
+            $( this ).button( "option", {
+              disabled: true,
+              label: "Downloading..."
+            });
+            dialog.dialog( "open" );
+          });
+   
+      progressbar.progressbar({
+        value: false,
+        change: function() {
+          progressLabel.text( "Current Progress: " + progressbar.progressbar( "value" ) + "%" );
+        },
+        complete: function() {
+          progressLabel.text( "Complete!" );
+          dialog.dialog( "option", "buttons", [{
+            text: "Close",
+            click: closeDownload
+          }]);
+          $(".ui-dialog button").last().trigger( "focus" );
+        }
+      });
+   
+      function progress() {
+        var val = progressbar.progressbar( "value" ) || 0;
+   
+        progressbar.progressbar( "value", val + Math.floor( Math.random() * 3 ) );
+   
+        if ( val <= 99 ) {
+          progressTimer = setTimeout( progress, 50 );
+        }
+      }
+   
+      function closeDownload() {
+        clearTimeout( progressTimer );
+        dialog
+          .dialog( "option", "buttons", dialogButtons )
+          .dialog( "close" );
+        progressbar.progressbar( "value", false );
+        progressLabel
+          .text( "Starting download..." );
+        downloadButton.trigger( "focus" );
+      }
+    } );
+    </script>
+</body>
+</html>

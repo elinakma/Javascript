@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+    }
+    nav {
+        background-color: green;
+        padding: 23px 0;
+        text-align: center;
+        display: none;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    section {
+        padding: 20px;
+        display: none;
+    }
+    a:hover {
+        background-color: rgb(0, 0, 0, 0.5);
+    }
+
+    .active {
+        background-color: rgb(0, 0, 0, 0.5);
+    }
+</style>
+<body>
+    <header>
+        <h1>Welcome</h1>
+        <button>Click in here</button>
+    </header>
+
+    <nav id="navbar">
+        <ul>
+          <li><a href="#home">Beranda</a></li>
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#services">Layanan</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h2>Selamat datang di halaman beranda!</h2>
+        <p>Ini adalah contoh halaman beranda yang menarik dengan efek dinamis menggunakan jQuery.</p>
+    </section>
+      
+    <section id="about">
+        <h2>Tentang Kami</h2>
+        <p>Ini adalah contoh halaman tentang kami.</p>
+    </section>
+      
+    <section id="services">
+        <h2>Layanan Kami</h2>
+        <p>Ini adalah contoh halaman layanan kami.</p>
+    </section>
+      
+    <section id="contact">
+        <h2>Hubungi Kami</h2>
+        <p>Ini adalah contoh halaman kontak kami.</p>
+    </section>
+
+    
+    <script>
+    $(document).ready(function(){
+        //reaksi ketika mengeklik button
+        $("button").click(function(){
+        //akan menampilkan navbar
+        $("#navbar").slideDown("slow");
+        });
+
+        //menu dengan efek dinamis jika navbar a diklik
+        $("#navbar a").click(function(){
+            var target = $(this).attr('href');
+            // Hapus kelas active dari semua elemen <a>
+            $("#navbar a").removeClass("active");
+            // Tambahkan kelas active ke elemen <a> yang diklik
+            $(this).addClass("active");
+            $('section').hide();
+            $(target).fadeIn();
+        });
+    });
+    </script>
+</body>
+</html>

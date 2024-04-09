@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Dialog with Progress Bar</title>
+    <!-- Load jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Load jQuery UI library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        .deskripsi {
+            display: flex;
+            align-items: center;
+        }
+        .deskripsi img {
+            width: 7%;
+            margin-right: 20px;
+        }
+        #download-button {
+            border: 8px solid royalblue;
+            border-radius: 100px;
+            background-color: royalblue;
+            width: 30%;
+            color: white;
+        }
+        #download-dialog {
+            display: none;
+        }
+        #progressbar {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="deskripsi">
+        <img src="gambar/pikachu.png">
+        <div>
+            <h2>Pikachu Go</h2>
+            <h3 style="color: cornflowerblue;">SYBO Games</h3>
+            <p>Berisi Iklan . Pembelian dalam apl</p>
+        </div>
+    </div>
+
+    <br>
+    <button id="download-button">Download Game</button>
+
+    <!-- Download dialog with progress bar -->
+    <div id="download-dialog" title="Download Progress">
+        <div id="progressbar"></div>
+        <p id="progress-label"></p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#download-button").click(function() {
+                // membuka dialod download
+                $("#download-dialog").dialog({
+                    modal: true,
+                    closeOnEscape: false,
+                    draggable: false,
+                    resizable: false,
+                    width: 400,
+                    open: function(event, ui) {
+                        $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                    }
+                });
+
+                // Simulasi file download
+                simulasiDownload();
+            });
+        });
+
+        function simulasiDownload() {
+            var progressbar = $("#progressbar"),
+                progressLabel = $("#progress-label");
+
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    progressLabel.text("Downloading... " + progressbar.progressbar("value") + "%");
+                },
+                complete: function() {
+                    progressLabel.text("Download Complete!");
+                    $("#download-dialog").dialog("close");
+                    alert("Game sudah selesai di download!");
+                }
+            });
+
+            var value = 0;
+            var interval = setInterval(function() {
+                value += Math.floor(Math.random() * 5);
+                progressbar.progressbar("value", value);
+
+                if (value >= 100) {
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+    </script>
+</body>
+</html>
